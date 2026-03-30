@@ -1,0 +1,27 @@
+package Sensores;
+
+public class SensorTemp extends Sensor {
+    private double temperatura;
+
+    public SensorTemp(String id, String marca) {
+        super(id, "Temperatura", marca);
+        this.temperatura = 0.0;
+    }
+
+    public void atualizarLeitura(double novoValor) {
+        if (novoValor < -50 || novoValor > 100) {
+            System.out.println("Aviso: Leitura de temperatura fora do intervalo realista: " + novoValor);
+        } else {
+            this.temperatura = novoValor;
+        }
+    }
+
+    public double getTemperatura() {
+        return temperatura;
+    }
+
+    @Override
+    public String lerDado() {
+        return temperatura + "°C";
+    }
+}

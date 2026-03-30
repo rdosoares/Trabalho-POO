@@ -1,3 +1,5 @@
+package Dispositivos;
+
 public abstract class Dispositivo {
     private String id;
     private String marca;

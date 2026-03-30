@@ -9,17 +9,17 @@ public class Tomada extends Dispositivo {
         this.consumoAtual = 0.0;
     }
 
-    // Define consumo atual (simulação)
+    // Define consumo atual 
     public void setConsumoAtual(double watts) {
         boolean estavaLigado = ligado;
         
         if (estavaLigado) {
             super.desligar();
-            consumoPorHora = watts; // Acesso direto (protected)
+            consumoPorHora = watts;
             super.ligar();
         } else {
             consumoPorHora = watts;
-        }S
+        }
         this.consumoAtual = watts;
     }
 
