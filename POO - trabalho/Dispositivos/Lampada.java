@@ -1,16 +1,18 @@
 package Dispositivos;
 
 public class Lampada extends Dispositivo {
-    private int intensidade; // 0 a 100
-    private int temperaturaCor; // 2700 a 4000
+    private int intensidade;    // 0 a 100%
+    private int temperaturaCor; // 2700K a 4000K
 
-    public Lampada(String id) {
-        super(id);
-        this.intensidade = 100; // Valor padrão
-        this.temperaturaCor = 2700; // Valor padrão
+    public Lampada(String id, String marca, String modelo, String localizacao, double consumo) {
+        super(id, marca, modelo, localizacao, consumo);
+        
+        // Valores iniciais padrão
+        this.intensidade = 100;
+        this.temperaturaCor = 2700;
     }
 
-    // Métodos específicos da lâmpada
+    // --- Métodos Específicos da Lâmpada ---
     public void setIntensidade(int intensidade) {
         if (intensidade >= 0 && intensidade <= 100) {
             this.intensidade = intensidade;
@@ -23,11 +25,18 @@ public class Lampada extends Dispositivo {
         }
     }
 
+    // --- Status ---
     @Override
     public String exibirStatus() {
-        String estado = ligado ? "Ligada" : "Desligada";
-        return "[Lampada] Status: " + estado + 
-               " | Intensidade: " + intensidade + "%" + 
-               " | Cor: " + temperaturaCor + "K";
+        String estado = ligado ? "LIGADA" : "DESLIGADA";
+        
+        // Usamos String.format para deixar o texto limpo e organizado
+        return String.format(
+            "[%s] Lâmpada %s %s (ID: %s)\n" +
+            "Estado: %s | Intensidade: %d%% | Cor: %dK\n" +
+            "Consumo Total Acumulado: %.4f Wh",
+            getLocalDivisao(), getMarca(), getModelo(), getId(),
+            estado, intensidade, temperaturaCor, getConsumoTotal()
+        );
     }
 }

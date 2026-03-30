@@ -1,43 +1,36 @@
-package Dispositivos;
+package Dispositivos; //PERGUNTAR AO PROFESSOR COMO FAZER
 
 public class PortaoGaragem extends Dispositivo {
-    private int percentagemAbertura; // 0 a 100%
-
-    public PortaoGaragem(String id) {
-        super(id);
-        this.percentagemAbertura = 0; // Inicia fechado
+	
+    // Ajuste no construtor para bater com a classe Dispositivo
+    public PortaoGaragem(String id, String marca, String modelo, String localizacao, double consumo) {
+        super(id, marca, modelo, localizacao, consumo);
     }
-
-    // Método para controlar a abertura parcial
-    public void ajustarAbertura(int valor) {
-        if (valor >= 0 && valor <= 100) {
-            this.percentagemAbertura = valor;
-            
-            // Lógica: se estiver 0% está "desligado" (fechado), 
-            // se for > 0 está "ligado" (aberto/em uso)
-            if (valor > 0) {
-                super.ligar();
-            } else {
-                super.desligar();
-            }
+   
+    // -- abrir/ligar e fechar/desligar --
+    public void abrir() {
+        if (!this.ligado) {
+            super.ligar();
+            System.out.println("O portão está a abrir...");
         } else {
-            System.out.println("Erro: A abertura deve estar entre 0 e 100%.");
+            System.out.println("O portão já está aberto.");
         }
     }
-
-    // Métodos de conveniência
-    public void abrirTotalmente() { ajustarAbertura(100); }
-    public void fecharTotalmente() { ajustarAbertura(0); }
-
+    
+    public void fechar() {
+        if (this.ligado) {
+            super.desligar();
+            System.out.println("O portão está a fechar...");
+        } else {
+            System.out.println("O portão já está fechado.");
+        }
+    }
+    
     @Override
     public String exibirStatus() {
-        String descricao;
-        descricao = switch (percentagemAbertura) {
-            case 0 -> "FECHADO";
-            case 100 -> "TOTALMENTE ABERTO";
-            default -> "PARCIALMENTE ABERTO (" + percentagemAbertura + "%)";
-        };
-        
-        return "[Portão Garagem " + getId() + "] Status: " + descricao;
+        // Usamos o booleano 'ligado' da classe pai (que é protected)
+        String estado = ligado ? "ABERTO" : "FECHADO";
+        return "[Portão " + getMarca() + " " + getModelo() + "] ID: " + getId() + 
+               " | Local: " + getLocalDivisao() + " | Status: " + estado;
     }
-}
+}   
