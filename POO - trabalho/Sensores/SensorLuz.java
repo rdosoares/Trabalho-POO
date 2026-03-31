@@ -5,8 +5,8 @@ public class SensorLuz extends Sensor {
 	private double intensidadeLuz;
     private Localizacao localizacao;
 
-    public SensorLuz(String id, String marca, Localizacao localizacao) {
-        super(id, "Luminosidade", marca);
+    public SensorLuz(String id, String marca, String local, Localizacao localizacao) {
+        super(id, "Luminosidade", marca, local);
         this.localizacao = localizacao;
         this.intensidadeLuz = 0.0;
     }
@@ -30,5 +30,10 @@ public class SensorLuz extends Sensor {
     @Override
     public String lerDado() {
         return intensidadeLuz + " lx (" + localizacao + ")";
+    }
+
+    public void setLeituraSimulada(String dado) {
+        // Exemplo: se receber "10.5 lux", ele guarda 10.5
+        this.intensidadeLuz = Double.parseDouble(dado.split(" ")[0]);
     }
 }

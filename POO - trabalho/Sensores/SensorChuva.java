@@ -3,8 +3,8 @@ package Sensores;
 public class SensorChuva extends Sensor {
     private double milimetrosChuva;
 
-    public SensorChuva(String id, String marca) {
-        super(id, "Chuva", marca);
+    public SensorChuva(String id, String marca, String local) {
+        super(id, "Chuva", marca, local);
         this.milimetrosChuva = 0.0;
     }
 

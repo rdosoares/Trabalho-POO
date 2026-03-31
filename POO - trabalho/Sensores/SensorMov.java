@@ -3,8 +3,8 @@ package Sensores;
 public class SensorMov extends Sensor {
     private boolean movimentoDetectado;
 
-    public SensorMov(String id, String marca) {
-        super(id, "Movimento", marca);
+    public SensorMov(String id, String marca, String local) {
+        super(id, "Movimento", marca, local);
         this.movimentoDetectado = false;
     }
 

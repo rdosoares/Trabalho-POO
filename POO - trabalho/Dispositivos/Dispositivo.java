@@ -44,6 +44,10 @@ public abstract class Dispositivo {
         }
     }
     
+    public boolean isLigado() {
+        return this.ligado;
+    }
+    
     public double getConsumoTotal() {
         double total = horasAcumuladas;
         if (ligado) {

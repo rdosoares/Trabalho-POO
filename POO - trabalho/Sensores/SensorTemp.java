@@ -3,8 +3,8 @@ package Sensores;
 public class SensorTemp extends Sensor {
     private double temperatura;
 
-    public SensorTemp(String id, String marca) {
-        super(id, "Temperatura", marca);
+    public SensorTemp(String id, String marca, String local) {
+        super(id, "Temperatura", marca, local);
         this.temperatura = 0.0;
     }
 
