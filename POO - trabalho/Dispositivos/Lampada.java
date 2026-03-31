@@ -24,10 +24,6 @@ public class Lampada extends Dispositivo {
             this.temperaturaCor = kelvin;
         }
     }
-  
-    public void setIntensidadeLuz(double intensidadeLuz) {
-        this.intensidade = intensidade;
-    }
     
     public int getIntensidade() { return intensidade; }
     public int getTemperatura() { return temperaturaCor; }
