@@ -19,9 +19,13 @@ public class SensorTemp extends Sensor {
     public double getTemperatura() {
         return temperatura;
     }
+    
+    public void setLeituraSimulada(String dado) {
+        this.temperatura = Double.parseDouble(dado.split(" ")[0]);
+    }
 
     @Override
     public String lerDado() {
-        return temperatura + "°C";
+        return temperatura + " ºC";
     }
 }

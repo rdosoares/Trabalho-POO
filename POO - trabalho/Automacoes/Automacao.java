@@ -1,6 +1,6 @@
 package Automacoes;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import Dispositivos.Dispositivo;
 import Sensores.Sensor;
@@ -15,9 +15,9 @@ public abstract class Automacao {
     }
 
     // Método abstrato que cada automação implementará com sua lógica
-    public abstract void verificarExecutar(Sensor sensor, List<Dispositivo> dispositivos);
-
+    public abstract void verificarExecutar(ArrayList<Sensor> sensores, ArrayList<Dispositivo> dispositivos);
+    
     public void setAtiva(boolean ativa) {
         this.ativa = ativa;
-    }
+    }	
 }

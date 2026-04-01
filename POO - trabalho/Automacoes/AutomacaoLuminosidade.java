@@ -1,10 +1,10 @@
 package Automacoes;
-
+import java.util.ArrayList;
 import Sensores.Sensor;
 import Sensores.SensorLuz;
 import Dispositivos.Dispositivo;
 import Dispositivos.Lampada;
-import java.util.List;
+
 
 public class AutomacaoLuminosidade extends Automacao {
     private double limiarMinimo;
@@ -15,33 +15,40 @@ public class AutomacaoLuminosidade extends Automacao {
     }
 
     @Override
-    public void verificarExecutar(Sensor sensor, List<Dispositivo> dispositivos) {
+    public void verificarExecutar(ArrayList<Sensor> sensores, ArrayList<Dispositivo> dispositivos) {
         if (!ativa) return;
 
-        // Verifica se o sensor é do tipo correto
-        if (sensor instanceof SensorLuz) {
-            SensorLuz sLuz = (SensorLuz) sensor;
-            
-            // Extraímos o valor numérico (lux) da String retornada pelo lerDado
-            double leituraAtual = Double.parseDouble(sLuz.lerDado().split(" ")[0]);
+        for (Sensor s : sensores) {
 
-            if (leituraAtual < limiarMinimo) {
-                String localDoSensor = sLuz.getLocal(); // Novo método da classe Sensor
-                
-                System.out.println("Luz baixa detectada em: " + localDoSensor);
+            if (s instanceof SensorLuz) {
+                SensorLuz sLuz = (SensorLuz) s;
 
-                // Filtra dispositivos: deve ser Lâmpada E estar no mesmo local
+                double leituraAtual = Double.parseDouble(sLuz.lerDado().split(" ")[0]);
+                String local = sLuz.getLocal();
+
                 for (Dispositivo d : dispositivos) {
-                    if (d instanceof Lampada && d.getLocalDivisao().equalsIgnoreCase(localDoSensor)) {
+                    if (d instanceof Lampada && d.getLocalDivisao().equalsIgnoreCase(local)) {
                         Lampada l = (Lampada) d;
-                        
-                        if (!l.isLigado()) {
-                            l.ligar();
+
+                        if (leituraAtual < limiarMinimo) {
+                            // 🔅 pouca luz → ligar
+                            if (!l.isLigado()) {
+                                l.ligar();
+                                l.setIntensidade(100);
+                                l.setTemperaturaCor(2700);
+
+                                System.out.println("Luz baixa em: " + local);
+                                System.out.println("Lâmpada " + l.getId() + " ligada a 100%");
+                            }
+
+                        } else {
+                            // 💡 luz suficiente → desligar
+                            if (l.isLigado()) {
+                                l.desligar();
+                                System.out.println("Luz suficiente em: " + local);
+                                System.out.println("Lâmpada " + l.getId() + " desligada");
+                            }
                         }
-                        l.setIntensidade(100);
-                        l.setTemperaturaCor(2700);
-                        
-                        System.out.println("Ação: Lâmpada " + l.getId() + " ajustada para 100%.");
                     }
                 }
             }

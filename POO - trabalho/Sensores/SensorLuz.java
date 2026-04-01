@@ -33,7 +33,6 @@ public class SensorLuz extends Sensor {
     }
 
     public void setLeituraSimulada(String dado) {
-        // Exemplo: se receber "10.5 lux", ele guarda 10.5
         this.intensidadeLuz = Double.parseDouble(dado.split(" ")[0]);
     }
 }
